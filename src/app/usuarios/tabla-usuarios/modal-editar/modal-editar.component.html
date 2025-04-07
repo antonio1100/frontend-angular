@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Hola</h1>
+<div mat-dialog-content class="mat-typography">
+  <p>Este es un modal en Angular.</p>
+  <p>{{ data.id }}</p>
+  <div class="example-container">
+    <div mat-form-field>
+        <input matInput placeholder="Input">
+    </div>
+  </div>
+  
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="update()">Actualizar</button>
+  <button mat-button mat-dialog-close (click)="close()">Cerrar</button>
+</div>
