@@ -11,11 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LoginComponent } from './login/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TablaUsuariosComponent
+    TablaUsuariosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     FormsModule ,
     HttpClientModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ReactiveFormsModule
     
     
   ],

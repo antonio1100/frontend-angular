@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
 
-  private apiURL = "http://localhost/PRUEBA-CAPI/capi_examen_back_Antonio_Avila/public/api/";
+  private apiURL = "http://localhost/api-laravel/public/api/";
 
   httpOptions = {
      headers: new HttpHeaders({
@@ -22,6 +22,10 @@ export class ApiService {
   }
 
   constructor(private httpClient: HttpClient) { }
+
+  login(email: string, password: string): Observable<any> {   
+    return this.httpClient.post(`${this.apiURL}login`, { email, password });
+  }
 
   getAll(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.apiURL+"users")
