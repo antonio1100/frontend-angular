@@ -1,3 +1,29 @@
+# Mi Proyecto Laravel/Angular
+
+Este es un proyecto de administración de tareas utilizando Angular material y css. Incluye autenticación mediante login, al ingresar al sistema se visualiza una barra de navegacion la cual tiene las opciones de actividades, que al darle click mostrara la tabla de las actividades creadas y un pequeño formulario para la creacion de actividades, si damos click a la opcion de usuarios nos mostrara el componente tabla de los usuarios creados, la opcion de eliminar funciona, la opcion de editar solo hace la peticion al endpoint y trae los datos pero solo abre un modal y muestra el id del registro en la BD.
+
+cuenta con cierre de sesion.
+
+
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone git@github.com:antonio1100/frontend-angular.git   o  git clone https://github.com/antonio1100/frontend-angular.git
+
+2. Instala las dependencias:
+     npm install
+3. despues de instalar las dependencias correr el comando ng serve para levantar el servicio, si no reconoce "ng" correr el comando npm run start, si no jala hay que hacer lo del paso numero 4
+4. Para instalar Angular CLI, necesitas: 
+     Instalar Node.js (yo descargue la version v20.10.0 y la descomprimi en mi carpeta bin/node de laragon)
+     Instalar npm, el gestor de paquetes de Node.js
+
+     Una vez que tengas Node.js y npm instalados, puedes instalar Angular CLI con el comando npm install -g @angular/cli.
+
+5. Ejecuta el servicio:
+     ng serve
+
+
 # CapiExamenFrontAntonioAvila
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.3.
