@@ -23,9 +23,9 @@ export class TablaActividadesComponent {
    form!: FormGroup;
    isEditMode = false;
    taskId?: number;
-   categories = ['trabajo', 'estudio', 'casa', 'personal', 'finanzas', 'salud', 'viaje', 'social', 'tecnología'];
+   categorias = ['trabajo', 'estudio', 'casa', 'personal', 'finanzas', 'salud', 'viaje', 'social', 'tecnología'];
    estados = ['pendiente', 'en progreso', 'completada'];
- 
+   tarea: any = null;
  
    @ViewChild(MatTable) tabla1!: MatTable<Tarea>;
  
@@ -35,16 +35,20 @@ export class TablaActividadesComponent {
    
    }
 
-   ngOnInit() {
+  ngOnInit() {
     this.form = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
+      titulo: ['', Validators.required],
+      descripcion: [''],
       status: ['pendiente', Validators.required],
-      dueDate: [''],
-      priority: [false],
-      category: ['', Validators.required]
+      fecha_de_vencimiento: [''],
+      prioridad: [false],
+      categoria: ['', Validators.required]
     });
 
+    this.getActividades();
+  }
+
+  getActividades(){
     this.service.getTasks().subscribe((data: Tarea[])=>{
       this.datos = data;
       console.log(this.datos);
@@ -52,63 +56,74 @@ export class TablaActividadesComponent {
   }
 
  
-   onDelete(id: number){
-     this.service.deleteTask(id).subscribe({
-       next: (response) => {
-         console.log('Elemento eliminado con éxito:', response);
-         this.datos = this.datos.filter(elemento => elemento.id !== id);
-         this.tabla1.renderRows();
-       },
-       error: (error) => {
-         this.errorMessage = error;
-         console.error('Hubo un error al eliminar el elemento:', error);
-       }
-     });
-   }
+  onDelete(id: number){
+    this.service.deleteTask(id).subscribe({
+      next: (response) => {
+        console.log('Elemento eliminado con éxito:', response);
+        this.datos = this.datos.filter(elemento => elemento.id !== id);
+        this.tabla1.renderRows();
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        console.error('Hubo un error al eliminar el elemento:', error);
+      }
+    });
+  }
  
-   openModal() {
-     // const dialogRef = this.dialog.open(ModalComponent, {
-     //   data: { message: 'Hola desde el botón!' },
-     // });
- 
-     // dialogRef.afterClosed().subscribe(result => {
-     //   console.log('El modal se cerró');
-     // });
-   }
- 
-   onEdit(id: number){
- 
-      let detalleItem = {};
-     // return this.httpClient.get(`${this.apiURL}producto/${id}`);
-     // console.log("variable detalleItem",detalleItem);
- 
-     this.service.getTask(id).subscribe({
-       next: (response) => {
-         console.log('detalle de Elemento  con éxito:', response);
+  onEdit(id: number){
+    this.service.getTask(id).subscribe({
+      next: (response) => {
+        console.log('detalle de Actividad:', response);
+        this.tarea = response;
+        this.taskId = response.id;
+        this.form.patchValue(response);
+      },
+    });
 
-        //  const dialogRef = this.dialog.open(ModalEditarComponent, {
-        //    height: '400px',
-        //    width: '600px',
-        //    data:  response ,
-     
-        //  });
-       },
-     });
- 
-   }
+  }
 
-   onSubmit() {
+  onSubmit() {
     if (this.form.invalid) return;
 
     const task = this.form.value as Tarea;
-
-    if (this.isEditMode) {
-      this.service.updateTask(this.taskId!, task).subscribe(() => this.router.navigate(['/actividades']));
+    // console.log("valor de this.isEditMode:",this.isEditMode);
+    
+    if (this.tarea != null) {
+      this.service.updateTask(this.taskId!, task).subscribe({
+        next: (response) => {
+          console.log('Elemento creado con éxito:', response);
+          alert('Tarea actualizada con éxito ✅');
+          this.getActividades();
+          this.tarea = null;
+          this.tabla1.renderRows();
+          this.resetForm();
+        },
+        error: (error) => {
+          this.errorMessage = error;
+          console.error('Hubo un error al crear el elemento:', error);
+        }
+      });
+     
     } else {
-      this.service.createTask(task).subscribe(() => this.router.navigate(['/actividades']));
+      this.service.createTask(task).subscribe({
+        next: (response) => {
+          console.log('Elemento creado con éxito:', response);
+          alert('Tarea creada con éxito ✅');
+          this.getActividades();
+          this.tabla1.renderRows();
+          this.resetForm();
+        },
+        error: (error) => {
+          this.errorMessage = error;
+          console.error('Hubo un error al crear el elemento:', error);
+        }
+      });
     }
   }
 
+  resetForm() {
+    this.form.reset();
+  }
 
 
 }

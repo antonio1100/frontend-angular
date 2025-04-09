@@ -33,10 +33,10 @@
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let dato">
-        <button mat-raised-button color="warn" focusable="false"  style="margin: 10px">
+        <button mat-raised-button color="warn" focusable="false"  style="margin: 10px" (click)="onDelete(dato.id)">
           Eliminar
         </button>
-        <button mat-raised-button color="primary" focusable="false" >
+        <button mat-raised-button color="primary" focusable="false" (click)="onEdit(dato.id)">
           Editar
         </button>
       </td>
@@ -47,22 +47,8 @@
   </table>
   <div class="contenedor">
   
-    <!-- <mat-form-field>
-      <input matInput [(ngModel)]="articuloselect.codigo" type="number" placeholder="Ingrese código">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput [(ngModel)]="articuloselect.descripcion" type="text" placeholder="Ingrese descripción">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput [(ngModel)]="articuloselect.precio" type="number" placeholder="Ingrese precio">
-    </mat-form-field> -->
-  
-    <!-- <button mat-raised-button color="primary" >Agregar</button> -->
-  
   </div>
-  <div class="container mt-4">
+  <!-- <div class="container mt-4">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label>Título</label>
@@ -101,5 +87,58 @@
       <button type="submit" class="btn btn-primary">
         {{ isEditMode ? 'Actualizar' : 'Crear' }} Tarea
       </button>
+    </form>
+  </div> -->
+
+  <div class="container mt-4" >
+    <h4 class="mb-3">Crear nueva tarea</h4>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()"  class="row g-3">
+  
+      <div class="col-md-6">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" id="titulo" formControlName="titulo" class="form-control"  name="title" >
+      </div>
+  
+      <div class="col-md-6">
+        <label for="categoria" class="form-label">Categoría</label>
+        <select id="categoria" class="form-select" formControlName="categoria"  name="category" required>
+          <option value="" disabled selected>Seleccionar</option>
+          <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+  
+      <div class="col-md-12">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" class="form-control"  name="description" rows="2"></textarea>
+      </div>
+  
+      <div class="col-md-4">
+        <label for="estado" class="form-label">Estado</label>
+        <select id="estado" class="form-select" formControlName="status"  name="status" required>
+          <option value="pendiente">Pendiente</option>
+          <option value="en progreso">En Progreso</option>
+          <option value="completada">Completada</option>
+        </select>
+      </div>
+  
+      <div class="col-md-4">
+        <label for="fecha" class="form-label">Fecha de vencimiento</label>
+        <input type="date" id="fecha" class="form-control" formControlName="fecha_de_vencimiento"  name="dueDate">
+      </div>
+  
+      <div class="col-md-4 d-flex align-items-center">
+        <div class="form-check mt-4">
+          <input type="checkbox" id="prioridad" class="form-check-input" formControlName="prioridad"  name="priority">
+          <label for="prioridad" class="form-check-label">¿Prioritario?</label>
+        </div>
+      </div>
+  
+      <div class="col-12">
+        <button *ngIf="!tarea" type="submit" class="btn btn-primary">
+          Crear Tarea
+        </button>
+        <button *ngIf="tarea" type="submit" class="btn btn-success w-100">Actualizar Tarea</button>
+        <button *ngIf="tarea"  class="btn btn-success w-100 " (click)="resetForm()">cancelar</button>
+      </div>
     </form>
   </div>

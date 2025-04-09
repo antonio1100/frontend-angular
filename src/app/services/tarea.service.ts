@@ -17,7 +17,7 @@ export class TareaService {
   }
 
   getTask(id: number): Observable<Tarea> {
-    return this.http.get<Tarea>(`${this.apiUrl}/${id}`);
+    return this.http.get<Tarea>(`${this.apiUrl}/tarea/${id}`);
   }
 
   createTask(task: Tarea): Observable<Tarea> {
@@ -25,11 +25,11 @@ export class TareaService {
   }
 
   updateTask(id: number, task: Tarea): Observable<Tarea> {
-    return this.http.put<Tarea>(`${this.apiUrl}/${id}`, task);
+    return this.http.put<Tarea>(`${this.apiUrl}/tarea/${id}`, task);
   }
 
   deleteTask(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/tarea/${id}`);
   }
 
 }
