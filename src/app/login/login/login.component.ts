@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api-service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   submitted = false;
   errorMessage = '';
 
-  constructor(private fb: FormBuilder,private httpClient: HttpClient, private service: ApiService) {
+  constructor(private fb: FormBuilder,private httpClient: HttpClient, private service: ApiService, public router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -25,8 +26,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    // console.log("metodo onSubmit: ",this.loginForm);
-    
+
     this.submitted = true;
     this.errorMessage = '';
 
@@ -35,29 +35,18 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
 
       this.service.login(email, password).subscribe({
-        next: (response) => {
-          console.log("login component :",response);
-          
-          localStorage.setItem('token', response.token);
-          alert('Login correcto ✅');
-          // Redirigir o navegar a otra vista
+        next: res => {
+          console.log('Token:', res);
+          this.router.navigateByUrl("navbar");
+          this.service.getUser().subscribe(user => {
+            console.log('Usuario logueado:', user);
+          });
         },
-        // error: (err) => {
-        //   this.errorMessage = 'Credenciales incorrectas ❌';
-        // }
+        error: err => {
+          console.error('Login falló:', err);
+        }
       });
 
-    
-
-  //   const { email, password } = this.loginForm.value;
-
-  //   // Aquí va la lógica real, por ejemplo, llamar a un servicio
-  //   if (email === 'admin@example.com' && password === '123456') {
-  //     alert('Login exitoso ✅');
-  //   } else {
-  //     this.errorMessage = 'Credenciales incorrectas ❌';
-  //   }
-  // }
 
 
   }

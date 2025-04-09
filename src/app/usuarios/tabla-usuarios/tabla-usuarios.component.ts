@@ -18,7 +18,7 @@ import { ModalEditarComponent } from './modal-editar/modal-editar.component';
 
 
 export class TablaUsuariosComponent implements OnInit{
-  private apiURL = "http://localhost/PRUEBA-CAPI/capi_examen_back_Antonio_Avila/public/api/";
+
   columnas: string[] = ['codigo', 'descripcion', 'precio', 'borrar'];
   errorMessage: string[];
   datos:User[];
@@ -81,8 +81,6 @@ export class TablaUsuariosComponent implements OnInit{
     
         });
       },
-      // this.datos = data;
-      // console.log(this.datos);
     });
 
    

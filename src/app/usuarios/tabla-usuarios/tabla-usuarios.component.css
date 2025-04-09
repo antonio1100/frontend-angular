@@ -1,8 +1,13 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
+table {
+  width: 70%;
+  margin:1rem auto;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  margin:1rem auto;
+  max-width: 400px;
+  box-shadow: -1px 3px 66px 0px rgba(0,0,0,0.75);
+  padding: 1rem;
+}

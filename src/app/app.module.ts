@@ -13,14 +13,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BarraLateralComponent } from './barra-lateral/barra-lateral.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TablaActividadesComponent } from './tabla-actividades/tabla-actividades.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TablaUsuariosComponent,
-    LoginComponent
+    LoginComponent,
+    BarraLateralComponent,
+    TablaActividadesComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
@@ -30,7 +40,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule ,
     HttpClientModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
     
     
   ],
